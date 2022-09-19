@@ -104,6 +104,7 @@ class CadastroAlunoCreateView(CreateView):
         Em breve você será inscrito(a) no curso {}. 
         Ao final das inscrições, para acessar sua conta na plataforma Moodle, verifique as informações abaixo:
 
+        Acesse: http://ead.cead.ufjf.br (ao final do período de inscrição)
         Identificação: {}
         Senha: {}
 

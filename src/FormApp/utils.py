@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 
 # send mail to the specified mothafucka.
 class SendEmail(object):
-    def __init__(self, subject=None,  message=None, emailfrom="no-reply@uab.ufjf.br", recipients=None):
+    def __init__(self, subject=None,  message=None, emailfrom=settings.EMAIL_HOST_USER, recipients=None):
         self.subject = subject
         self.message = message
         self.emailfrom = emailfrom
