@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5 w-75">
+    <form method="post" >{% csrf_token %}
+        <table class="table">
+            {{ form.errors }}
+            <thead class="custom_thead">
+                <tr>
+                    <th colspan="12">Dados Pessoais</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="w-25" colspan="3">{{form.cpf.label}}{{form.cpf}}</td>
+                    <td class="w-25" colspan="3">{{form.data_nascimento.label}}{{form.data_nascimento}}</td>
+                    <td class="w-50" colspan="6">{{form.curso.label}}{{form.curso}}</td>
+                </tr>
+                <tr>
+                    <td class="w-50" colspan="6">{{form.nome.label}}{{form.nome}}</td>
+                    <td class="w-50" colspan="6">{{form.sobrenome.label}}{{form.sobrenome}}</td>
+                </tr>
+                <tr>
+                    <td class="w-25" colspan="3">{{form.telefone.label}}{{form.telefone}}</td>
+                    <td class="w-50" colspan="6">{{form.email.label}}{{form.email}}</td>
+                    <td class="w-25" colspan="3">{{form.siga.label}}{{form.siga}}</td>
+                </tr>
+                <tr>
+                    <td class="w-25" colspan="3">{{form.possui_siape.label}}{{form.possui_siape}}</td>
+                    <td class="w-25" colspan="3"><span id="siape" style="display: none;">{{form.siape.label}}</span>{{form.siape}}</td>
+                    <td class="w-50" colspan="6"></td>
+                </tr>
+            </body>
+            <thead class="custom_thead">
+                <tr>
+                    <th colspan="12">Dados adicionais</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="w-25" colspan="3">{{form.cep.label}}{{form.cep}}</td>
+                    <td class="w-50" colspan="6">{{form.logradouro.label}}{{form.logradouro}}</td>
+                    <td class="w-25" colspan="3">{{form.numero.label}}{{form.numero}}</td>
+                </tr>
+                <tr>
+                    <td class="w-25" colspan="3">{{form.complemento.label}}{{form.complemento}}</td>
+                    <td class="w-25" colspan="3">{{form.bairro.label}}{{form.bairro}}</td>
+                    <td class="w-25" colspan="3">{{form.cidade.label}}{{form.cidade}}</td>
+                    <td class="w-25" colspan="3">{{form.uf.label}}{{form.uf}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary px-3">Enviar</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('#id_cpf').mask('000.000.000-00', {reverse: true});
+        $('#id_cep').mask('00000-000');
+        $('#id_telefone').mask('(00) 000000000');
+    });
+    
+    $('#id_cep').on('change', async function(){
+        const response = await fetch('https://viacep.com.br/ws/' + $('#id_cep').val().replace('-','') + '/json/');
+        if(response.status == 200){
+            var data = await response.json();
+
+            $('#id_logradouro').val(data.logradouro);
+            $('#id_complemento').val(data.complemento);
+            $('#id_bairro').val(data.bairro);
+            $('#id_uf').val(data.uf);
+            $('#id_cidade').val(data.localidade);
+            $('#id_uf').val(data.uf).trigger('change');
+        }
+    })
+
+    $('#id_possui_siape').change(function(){
+        if($('#id_possui_siape').val() == 'True'){
+            $('#id_siape').show()
+            $('#siape').show()
+        }else{
+            $('#id_siape').hide()
+            $('#siape').hide()
+        }
+    })
+</script>
+
+{% endblock %}

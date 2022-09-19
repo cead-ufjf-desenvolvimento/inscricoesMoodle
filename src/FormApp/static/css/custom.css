@@ -1,0 +1,40 @@
+a{
+    text-decoration: none;
+}
+
+.logo{
+    height: 2rem;
+    width: auto;
+    /* filter: grayscale(1.0); */
+}
+
+.card{
+    width: 25rem;
+}
+
+.custom_thead{
+    background-color: #dee2e6;
+}
+
+.date{
+    width: 10rem;
+}
+
+.number,
+.simnao{
+    width: 6rem;
+}
+
+.sidebar{
+    height: calc(100vh - 3.75rem);
+    width: 20vw;
+    background-color: #dee2e6;
+}
+
+table input{
+    width: 100%;
+}
+
+.errorlist{
+    color: red;
+}

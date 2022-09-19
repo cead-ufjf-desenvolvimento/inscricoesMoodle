@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CEAD - Matrícula</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.js' %}"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light bg-light shadow">
+        <div class="container-fluid d-flex">
+            <a class="navbar-brand" href="{% url 'aluno_cadastro' %}">
+                <img src="{% static 'assets/cead_logo.png' %}" alt="Logo do CEAD" class="ms-2 logo d-inline-block align-text-center">
+                <span class="ms-2">CEAD | Matrícula</span>
+            </a>
+
+            {% if not user.is_anonymous %}
+            <div class="d-flex gap-3">
+                <span>Usuário: {{user}}</span>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+
+            {% endif %}
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer class=" fixed-bottom text-center text-lg-start bg-light text-muted">
+        <div class="p-2 d-flex gap-3 justify-content-center" style="background-color: rgba(0, 0, 0, 0.05);">
+            <a class="text-reset fw-bold" href="http://www.cead.ufjf.br/">CEAD | UFJF</a>
+            Centro de Educação a Distância da UFJF
+        </div>
+    </footer>
+</body>
