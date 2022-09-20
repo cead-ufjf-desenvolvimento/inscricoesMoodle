@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load custom_tags %}
+
 <div class="container mt-5 w-75">
     <form method="post" >{% csrf_token %}
         <table class="table">
@@ -29,7 +31,7 @@
                 <tr>
                     <td class="w-25" colspan="3">{{form.possui_siape.label}}{{form.possui_siape}}</td>
                     <td class="w-25" colspan="3"><span id="siape" style="display: none;">{{form.siape.label}}</span>{{form.siape}}</td>
-                    <td class="w-50" colspan="6"></td>
+                    <td class="w-50" colspan="6"><span id="documentacao">{{form.documentacao.label}}{{form.documentacao}}</td>
                 </tr>
             </body>
             <thead class="custom_thead">
@@ -60,6 +62,13 @@
         $('#id_cpf').mask('000.000.000-00', {reverse: true});
         $('#id_cep').mask('00000-000');
         $('#id_telefone').mask('(00) 000000000');
+        if($('#id_curso').val() == 'False'){
+            $('#id_documentacao').hide();
+            $('#documentacao').hide();
+        }else{
+            $('#id_documentacao').show();
+            $('#documentacao').show();
+        }
     });
     
     $('#id_cep').on('change', async function(){
@@ -83,6 +92,16 @@
         }else{
             $('#id_siape').hide()
             $('#siape').hide()
+        }
+    })
+
+    $('#id_curso').change(function(){
+        if($('#id_curso').val() == 'False'){
+            $('#id_documentacao').hide()
+            $('#documentacao').hide()
+        }else{
+            $('#id_documentacao').show()
+            $('#documentacao').show()
         }
     })
 </script>

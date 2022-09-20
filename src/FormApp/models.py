@@ -18,12 +18,16 @@ class Curso(models.Model):
     data_fim = models.DateField()
     matricula_inicio = models.DateTimeField()
     matricula_fim = models.DateTimeField()
+    
+    anexar_documentacao = models.BooleanField()
+
 
     def __str__(self):
         return self.nome
 
 class DadosDoAluno(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT, verbose_name="Curso Pretendido")
+    documentacao = models.FileField(verbose_name="Documentação")
 
     cpf = models.CharField(max_length=14, verbose_name="CPF", validators=[validateCPF])
     data_nascimento = models.DateField(verbose_name="Data de Nascimento")
@@ -48,3 +52,5 @@ class DadosDoAluno(models.Model):
     
     siga = models.BooleanField(verbose_name="É aluno da UFJF?")
     siape = models.CharField(max_length=7, null=True, blank=True, verbose_name="SIAPE")
+
+    data_cadastro = models.DateTimeField(auto_now_add=True)
