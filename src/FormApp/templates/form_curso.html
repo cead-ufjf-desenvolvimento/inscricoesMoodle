@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5 w-75">
+    {{form.errors}}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="post">{% csrf_token %}
+        <table class="table">
+            <thead class="custom_thead">
+                <tr>
+                    <th colspan="4">Cabeçalho</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="w-75" colspan="3">{{form.nome.label}}{{form.nome}}</td>
+                    <td class="w-25" colspan="1">{{form.nome_breve.label}}{{form.nome_breve}}</td>
+                </tr>
+                <tr>
+                    <td class="w-50" colspan="2">{{form.categoria.label}}{{form.categoria}}</td>
+                    <td class="w-25" colspan="1">{{form.anexar_documentacao.label}}{{form.anexar_documentacao}}</td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td class="w-25">{{form.data_inicio.label}}{{form.data_inicio}}</td>
+                    <td class="w-25">{{form.data_fim.label}}{{form.data_fim}}</td>
+                    <td class="w-25">{{form.matricula_inicio.label}}{{form.matricula_inicio}}</td>
+                    <td class="w-25">{{form.matricula_fim.label}}{{form.matricula_fim}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+</div>
+
+
+{% endblock %}

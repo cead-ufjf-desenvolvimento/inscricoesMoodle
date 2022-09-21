@@ -62,13 +62,16 @@
         $('#id_cpf').mask('000.000.000-00', {reverse: true});
         $('#id_cep').mask('00000-000');
         $('#id_telefone').mask('(00) 000000000');
-        if($('#id_curso').val() == 'False'){
+        flag_list = {{flag_curso_list}};
+        
+        if(!(flag_list.includes($('#id_curso').val()))){
             $('#id_documentacao').hide();
             $('#documentacao').hide();
         }else{
             $('#id_documentacao').show();
             $('#documentacao').show();
         }
+        $('#id_curso').select2();
     });
     
     $('#id_cep').on('change', async function(){
@@ -96,12 +99,14 @@
     })
 
     $('#id_curso').change(function(){
-        if($('#id_curso').val() == 'False'){
-            $('#id_documentacao').hide()
-            $('#documentacao').hide()
+        flag_list = {{flag_curso_list}}
+        val = Number($('#id_curso').val())
+        if(flag_list.includes(val)){
+            $('#id_documentacao').show();
+            $('#documentacao').show();
         }else{
-            $('#id_documentacao').show()
-            $('#documentacao').show()
+            $('#id_documentacao').hide();
+            $('#documentacao').hide();
         }
     })
 </script>

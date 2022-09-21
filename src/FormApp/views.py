@@ -1,16 +1,26 @@
 import csv, json, os
 
 from django.shortcuts import render
+from django.contrib import messages
 from django.views.generic.edit import CreateView
-from FormApp.forms import AlunosForm
+from FormApp.forms import AlunosForm, CursosForm
 from FormApp.utils import PasswdGen, SendEmail
-from FormApp.models import DadosDoAluno
+from FormApp.models import Curso, DadosDoAluno
 
 # Create your views here.
 class CadastroAlunoCreateView(CreateView):
     form_class = AlunosForm
     template_name = 'form_aluno.html'
     success_url = '/thanks'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        flag_curso_list = []
+        for curso in Curso.objects.all():
+            if curso.anexar_documentacao:
+                flag_curso_list.append(curso.id)
+        context['flag_curso_list'] = flag_curso_list
+        return context
     
     def form_valid(self, form):
         new_data = form.save(commit=False)
@@ -128,3 +138,17 @@ def thanks(request):
     dados_aluno = DadosDoAluno.objects.get(pk=request.session['dados_aluno'])
     context = {'dados_aluno': dados_aluno}
     return render(request, 'thanks.html', context)
+
+class CadastroCursoCreateView(CreateView):
+    form_class = CursosForm
+    template_name = "form_curso.html"
+    success_url = "/thanks"
+
+    def form_valid(self, form):
+        messages.success(self.request, "Curso cadastrado com sucesso")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors.as_data())
+        messages.success(self.request, form.errors.as_data())
+        return super().form_invalid(form)

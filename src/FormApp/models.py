@@ -12,14 +12,14 @@ class Curso(models.Model):
     )
 
     nome = models.CharField(max_length=255)
-    nome_breve = models.CharField(max_length=31)
+    nome_breve = models.CharField(max_length=31, verbose_name="Nome Breve")
     categoria = models.CharField(max_length=9, choices=CATEGORIA_CHOICES)
-    data_inicio = models.DateField()
-    data_fim = models.DateField()
-    matricula_inicio = models.DateTimeField()
-    matricula_fim = models.DateTimeField()
+    data_inicio = models.DateField(verbose_name="Início das Atividades")
+    data_fim = models.DateField(verbose_name="Fim das Atividades")
+    matricula_inicio = models.DateTimeField(verbose_name="Início das Inscrições")
+    matricula_fim = models.DateTimeField(verbose_name="Fim das Inscrições")
     
-    anexar_documentacao = models.BooleanField()
+    anexar_documentacao = models.BooleanField(verbose_name="Anexar Documentação", default=False)
 
 
     def __str__(self):
