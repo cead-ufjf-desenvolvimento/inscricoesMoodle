@@ -19,7 +19,7 @@ class Curso(models.Model):
     matricula_inicio = models.DateTimeField(verbose_name="Início das Inscrições")
     matricula_fim = models.DateTimeField(verbose_name="Fim das Inscrições")
     
-    anexar_documentacao = models.BooleanField(verbose_name="Anexar Documentação", default=False)
+    anexar_documentacao = models.BooleanField(verbose_name="Anexar Documentação", default=False, null=True, blank=True)
 
 
     def __str__(self):
