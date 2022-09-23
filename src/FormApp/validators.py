@@ -48,3 +48,7 @@ def validateCPF(cpf):
     expected_digit = (sum_of_products * 10 % 11) % 10
     if numbers[10] != expected_digit:
         raise ValidationError(_('CPF inválido.'), params={'cpf': cpf})
+
+def validatePDF(file):
+    if file.name[-4:] != ".pdf":
+        raise ValidationError(_('O documento enviado deve estar no formato PDF'), params={'file': file})

@@ -29,6 +29,11 @@ class CadastroAlunoCreateView(CreateView):
         new_data.cpf = form.cleaned_data['cpf'].replace('.', '').replace('-', '')
         new_data.cep = form.cleaned_data['cep'].replace('-', '')
         new_data.telefone = form.cleaned_data['telefone'].replace('(', '').replace(')', '').replace(' ', '')
+        dir_name = form.cleaned_data['curso'].data_inicio.strftime('%Y%m%d') + "_" + form.cleaned_data['curso'].nome_breve
+        file_name = form.cleaned_data['nome'] + "_" + form.cleaned_data['sobrenome'] + ".pdf"
+        if not os.path.isdir('uploads/' + dir_name):
+            os.mkdir('uploads/' + dir_name)
+        new_data.documentacao.name = dir_name + '/' + file_name
         new_data.save()
         
         self.request.session['dados_aluno'] = new_data.id
@@ -44,7 +49,7 @@ class CadastroAlunoCreateView(CreateView):
         form.cleaned_data['data_nascimento'] = form.cleaned_data['data_nascimento'].strftime('%d%m%y')
         form.cleaned_data['cpf'] = form.cleaned_data['cpf'].replace('.', '').replace('-', '')
         form.cleaned_data['telefone'] = form.cleaned_data['telefone'].replace('(', '').replace(')', '').replace(' ', '')
-        
+        form.cleaned_data['documentacao'] = form.cleaned_data['documentacao'].name
         
         ### JSON ###
         # Verificação para o caso de já existirem alunos cadastrados no curso em questão
@@ -129,8 +134,8 @@ class CadastroAlunoCreateView(CreateView):
 
         recipients = [new_data['email']]
 
-        new_email = SendEmail(subject=subject, message=message, recipients=recipients)
-        new_email.send()
+        # new_email = SendEmail(subject=subject, message=message, recipients=recipients)
+        # new_email.send()
 
         return super().form_valid(form)
 
@@ -139,10 +144,13 @@ def thanks(request):
     context = {'dados_aluno': dados_aluno}
     return render(request, 'thanks.html', context)
 
+def thanks2(request):
+    return render(request, 'thanks2.html')
+
 class CadastroCursoCreateView(CreateView):
     form_class = CursosForm
     template_name = "form_curso.html"
-    success_url = "/thanks"
+    success_url = "/thanks2"
 
     def form_valid(self, form):
         messages.success(self.request, "Curso cadastrado com sucesso")
