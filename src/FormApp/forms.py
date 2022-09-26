@@ -35,7 +35,7 @@ class CursosForm(forms.ModelForm):
         model = Curso
         fields = "__all__"
         widgets = {
-            'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome completo da disciplina'}),
+            'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome completo do curso'}),
             'nome_breve': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex.: DIS123-' + str(timezone.now().year) + '.1-A'}),
             'categoria': forms.Select(attrs={'class': 'form-select'}),
             'data_inicio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),

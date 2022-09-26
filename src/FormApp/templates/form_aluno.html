@@ -53,7 +53,7 @@
                 </tr>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary px-3">Enviar</button>
+        <button type="submit" class="btn btn-primary px-3 mb-4">Enviar</button>
     </form>
 </div>
 
@@ -61,7 +61,18 @@
     $(document).ready(function(){
         $('#id_cpf').mask('000.000.000-00', {reverse: true});
         $('#id_cep').mask('00000-000');
-        $('#id_telefone').mask('(00) 000000000');
+
+        var PhoneMaskBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+          },
+          Options = {
+            onKeyPress: function(val, e, field, options) {
+                field.mask(PhoneMaskBehavior.apply({}, arguments), options);
+              }
+          };
+        $('#id_telefone').mask(PhoneMaskBehavior, Options);
+
+
         flag_list = {{flag_curso_list}};
         
         if(!(flag_list.includes($('#id_curso').val()))){

@@ -1,7 +1,7 @@
 from django.db import models
 from localflavor.br.br_states import STATE_CHOICES
 
-from FormApp.validators import validateCPF, validatePDF
+from FormApp.validators import validateBirthdate, validateCPF, validatePDF
 
 # Create your models here.
 class Curso(models.Model):
@@ -30,7 +30,7 @@ class DadosDoAluno(models.Model):
     documentacao = models.FileField(verbose_name="Documentação", upload_to="uploads", validators=[validatePDF])
 
     cpf = models.CharField(max_length=14, verbose_name="CPF", validators=[validateCPF])
-    data_nascimento = models.DateField(verbose_name="Data de Nascimento")
+    data_nascimento = models.DateField(verbose_name="Data de Nascimento", validators=[validateBirthdate])
     nome = models.CharField(
         max_length=63, 
         verbose_name="Nome/Nome Social", 

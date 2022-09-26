@@ -29,6 +29,7 @@ class CadastroAlunoCreateView(CreateView):
         new_data.cpf = form.cleaned_data['cpf'].replace('.', '').replace('-', '')
         new_data.cep = form.cleaned_data['cep'].replace('-', '')
         new_data.telefone = form.cleaned_data['telefone'].replace('(', '').replace(')', '').replace(' ', '')
+        
         dir_name = form.cleaned_data['curso'].data_inicio.strftime('%Y%m%d') + "_" + form.cleaned_data['curso'].nome_breve
         file_name = form.cleaned_data['nome'] + "_" + form.cleaned_data['sobrenome'] + ".pdf"
         if not os.path.isdir('uploads/' + dir_name):
@@ -42,7 +43,10 @@ class CadastroAlunoCreateView(CreateView):
         data_matricula = form.cleaned_data['curso'].matricula_inicio.strftime('%d%m%y')
         nome = form.cleaned_data['curso'].nome
         nome_breve = form.cleaned_data['curso'].nome_breve
-        filename = 'outputs/' + nome + '_' + data_matricula
+        
+        if not os.path.isdir('outputs/' + dir_name):
+            os.mkdir('outputs/' + dir_name)
+        filename = 'outputs/' + dir_name + '/' + nome + '_' + data_matricula
 
         # Atualização dos campos do dicionário para a formatação de interesse 
         form.cleaned_data['curso'] = form.cleaned_data['curso'].nome

@@ -1,4 +1,5 @@
 import re
+from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -52,3 +53,7 @@ def validateCPF(cpf):
 def validatePDF(file):
     if file.name[-4:] != ".pdf":
         raise ValidationError(_('O documento enviado deve estar no formato PDF'), params={'file': file})
+
+def validateBirthdate(date):
+    if timezone.make_aware(timezone.datetime(date.year, date.month, date.day)) > timezone.now() - timezone.timedelta(days=365*18+4):
+        raise ValidationError(_('Este curso é, incialmente, indicado para maiores de 18 anos. Entre em contato com a coordenação do curso para maiores informações.'), params={'date': date})
