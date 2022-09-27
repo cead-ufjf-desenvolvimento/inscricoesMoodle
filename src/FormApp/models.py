@@ -29,7 +29,7 @@ class DadosDoAluno(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT, verbose_name="Curso Pretendido")
     documentacao = models.FileField(verbose_name="Documentação", upload_to="uploads", validators=[validatePDF])
 
-    cpf = models.CharField(max_length=14, verbose_name="CPF", validators=[validateCPF])
+    cpf = models.CharField(max_length=14, verbose_name="CPF", validators=[validateCPF], unique=True)
     data_nascimento = models.DateField(verbose_name="Data de Nascimento", validators=[validateBirthdate])
     nome = models.CharField(
         max_length=63, 
@@ -42,7 +42,7 @@ class DadosDoAluno(models.Model):
     email = models.EmailField(verbose_name="e-mail")
     cidade = models.CharField(max_length=63)
 
-    telefone = models.CharField(max_length=14)
+    telefone = models.CharField(max_length=15)
     cep = models.CharField(max_length=9, verbose_name="CEP")
     logradouro = models.CharField(max_length=255, verbose_name="Logradouro")
     numero = models.IntegerField(verbose_name="Número")

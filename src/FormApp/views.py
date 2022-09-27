@@ -120,7 +120,7 @@ class CadastroAlunoCreateView(CreateView):
         Prezado(a),
 
         Bem-vindo(a) ao Cead UFJF!
-        Em breve você será inscrito(a) no curso {}. 
+        Você foi inscrito(a) no curso {}. 
         Ao final das inscrições, para acessar sua conta na plataforma Moodle, verifique as informações abaixo:
 
         Acesse: http://ead.cead.ufjf.br (ao final do período de inscrição)
@@ -138,8 +138,8 @@ class CadastroAlunoCreateView(CreateView):
 
         recipients = [new_data['email']]
 
-        # new_email = SendEmail(subject=subject, message=message, recipients=recipients)
-        # new_email.send()
+        new_email = SendEmail(subject=subject, message=message, recipients=recipients)
+        new_email.send()
 
         return super().form_valid(form)
 
@@ -151,16 +151,16 @@ def thanks(request):
 def thanks2(request):
     return render(request, 'thanks2.html')
 
-class CadastroCursoCreateView(CreateView):
-    form_class = CursosForm
-    template_name = "form_curso.html"
-    success_url = "/thanks2"
+# class CadastroCursoCreateView(CreateView):
+#     form_class = CursosForm
+#     template_name = "form_curso.html"
+#     success_url = "/thanks2"
 
-    def form_valid(self, form):
-        messages.success(self.request, "Curso cadastrado com sucesso")
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         messages.success(self.request, "Curso cadastrado com sucesso")
+#         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        print(form.errors.as_data())
-        messages.success(self.request, form.errors.as_data())
-        return super().form_invalid(form)
+#     def form_invalid(self, form):
+#         print(form.errors.as_data())
+#         messages.success(self.request, form.errors.as_data())
+#         return super().form_invalid(form)
