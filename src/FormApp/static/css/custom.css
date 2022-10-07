@@ -38,3 +38,17 @@ table input{
 .errorlist{
     color: red;
 }
+
+#id_siape, #siape{
+    display: inline-block;
+    transform: translateX(-110%);
+    opacity: 0;
+    transition: transform 1s, opacity 1s;
+}
+
+#id_documentacao, #documentacao{
+    display: inline-block;
+    transform: translateX(75%);
+    opacity: 0;
+    transition: transform 1s, opacity 1s;
+}

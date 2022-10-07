@@ -101,11 +101,11 @@
 
     $('#id_possui_siape').change(function(){
         if($('#id_possui_siape').val() == 'True'){
-            $('#id_siape').show()
-            $('#siape').show()
+            $('#id_siape').show(0).css('opacity', '1').css('transform', 'translateX(0)');
+            $('#siape').show(0).css('opacity', '1').css('transform', 'translateX(0)');
         }else{
-            $('#id_siape').hide()
-            $('#siape').hide()
+            $('#id_siape').css('opacity', '0').css('transform', 'translateX(-110%)').delay(1000).hide(0);
+            $('#siape').css('opacity', '0').css('transform', 'translateX(-110%)').delay(1000).hide(0);
         }
     })
 
@@ -113,11 +113,11 @@
         flag_list = {{flag_curso_list}}
         val = Number($('#id_curso').val())
         if(flag_list.includes(val)){
-            $('#id_documentacao').show();
-            $('#documentacao').show();
+            $('#id_documentacao').show(0).css('opacity', '1').css('transform', 'translateX(0)');
+            $('#documentacao').show(0).css('opacity', '1').css('transform', 'translateX(0)');
         }else{
-            $('#id_documentacao').hide();
-            $('#documentacao').hide();
+            $('#id_documentacao').css('opacity', '0').css('transform', 'translateX(75%)').delay(1000).hide(0);
+            $('#documentacao').css('opacity', '0').css('transform', 'translateX(75%)').delay(1000).hide(0);
         }
     })
 </script>
