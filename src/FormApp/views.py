@@ -3,7 +3,7 @@ import csv, json, os
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic.edit import CreateView
-from FormApp.forms import AlunosForm, CursosForm
+from FormApp.forms import AlunosForm
 from FormApp.utils import PasswdGen, SendEmail
 from FormApp.models import Curso, DadosDoAluno
 
