@@ -30,12 +30,14 @@ class CadastroAlunoCreateView(CreateView):
         new_data.cep = form.cleaned_data['cep'].replace('-', '')
         new_data.telefone = form.cleaned_data['telefone'].replace('(', '').replace(')', '').replace(' ', '')
         
+        # Formatação do diretório e do arquivo PDF que será armazenado
         dir_name = form.cleaned_data['curso'].data_inicio.strftime('%Y%m%d') + "_" + form.cleaned_data['curso'].nome_breve
         file_name = form.cleaned_data['nome'] + "_" + form.cleaned_data['sobrenome'] + ".pdf"
-        if not os.path.isdir('uploads/' + dir_name):
-            os.mkdir('uploads/' + dir_name)
-        new_data.documentacao.name = dir_name + '/' + file_name
-        new_data.save()
+        if new_data.documentacao:
+            if not os.path.isdir('uploads/' + dir_name):
+                os.mkdir('uploads/' + dir_name)
+            new_data.documentacao.name = dir_name + '/' + file_name
+            new_data.save()
         
         self.request.session['dados_aluno'] = new_data.id
 
@@ -53,7 +55,8 @@ class CadastroAlunoCreateView(CreateView):
         form.cleaned_data['data_nascimento'] = form.cleaned_data['data_nascimento'].strftime('%d%m%y')
         form.cleaned_data['cpf'] = form.cleaned_data['cpf'].replace('.', '').replace('-', '')
         form.cleaned_data['telefone'] = form.cleaned_data['telefone'].replace('(', '').replace(')', '').replace(' ', '')
-        form.cleaned_data['documentacao'] = form.cleaned_data['documentacao'].name
+        if form.cleaned_data['documentacao']:
+            form.cleaned_data['documentacao'] = form.cleaned_data['documentacao'].name
         
         ### JSON ###
         # Verificação para o caso de já existirem alunos cadastrados no curso em questão
@@ -143,10 +146,14 @@ class CadastroAlunoCreateView(CreateView):
 
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        print(form.errors.as_data())
+        messages.success(self.request, form.errors.as_data())
+        return super().form_invalid(form)
+        
+
 def thanks(request):
-    dados_aluno = DadosDoAluno.objects.get(pk=request.session['dados_aluno'])
-    context = {'dados_aluno': dados_aluno}
-    return render(request, 'thanks.html', context)
+    return render(request, 'thanks.html')
 
 def thanks2(request):
     return render(request, 'thanks2.html')

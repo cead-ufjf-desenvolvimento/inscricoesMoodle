@@ -27,7 +27,7 @@ class AlunosForm(forms.ModelForm):
             'uf': forms.Select(attrs={'class': 'form-select'}),
             'siga': forms.Select(choices=((False, "Não"), (True, "Sim")), attrs={'class': 'form-select'}),
             'siape': forms.TextInput(attrs={'class': 'form-control', 'style': 'display: none;'}),
-            'documentacao': forms.FileInput(attrs={'class': 'form-control', 'required': 'false'}),
+            'documentacao': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
 class CursosForm(forms.ModelForm):

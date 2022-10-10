@@ -5,6 +5,10 @@
 {% load custom_tags %}
 
 <div class="container mt-5 w-75">
+    {% if messages %}
+        {{messages}}
+    {%endif %}
+    
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
         <table class="table">
             {{ form.errors }}
@@ -72,16 +76,16 @@
           };
         $('#id_telefone').mask(PhoneMaskBehavior, Options);
 
-
-        flag_list = {{flag_curso_list}};
-        
-        if(!(flag_list.includes($('#id_curso').val()))){
-            $('#id_documentacao').hide();
-            $('#documentacao').hide();
+        flag_list = {{flag_curso_list}}
+        val = Number($('#id_curso').val())
+        if(flag_list.includes(val)){
+            $('#id_documentacao').show(0).css('opacity', '1').css('transform', 'translateX(0)');
+            $('#documentacao').show(0).css('opacity', '1').css('transform', 'translateX(0)');
         }else{
-            $('#id_documentacao').show();
-            $('#documentacao').show();
+            $('#id_documentacao').css('opacity', '0').css('transform', 'translateX(75%)').delay(1000).hide(0);
+            $('#documentacao').css('opacity', '0').css('transform', 'translateX(75%)').delay(1000).hide(0);
         }
+        
         $('#id_curso').select2();
     });
     
