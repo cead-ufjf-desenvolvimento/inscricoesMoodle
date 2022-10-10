@@ -3,9 +3,11 @@ import csv, json, os
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic.edit import CreateView
+from django.core.exceptions import ValidationError
 from FormApp.forms import AlunosForm
 from FormApp.utils import PasswdGen, SendEmail
 from FormApp.models import Curso, DadosDoAluno
+from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
 class CadastroAlunoCreateView(CreateView):
@@ -28,7 +30,7 @@ class CadastroAlunoCreateView(CreateView):
         new_data.telefone = form.cleaned_data['telefone'].replace('(', '').replace(')', '')
         new_data.cpf = form.cleaned_data['cpf'].replace('.', '').replace('-', '')
         new_data.cep = form.cleaned_data['cep'].replace('-', '')
-        new_data.telefone = form.cleaned_data['telefone'].replace('(', '').replace(')', '').replace(' ', '')
+        new_data.telefone = form.cleaned_data['telefone'].replace('(', '').replace(')', '').replace('-','').replace(' ', '')
         
         # Formatação do diretório e do arquivo PDF que será armazenado
         dir_name = form.cleaned_data['curso'].data_inicio.strftime('%Y%m%d') + "_" + form.cleaned_data['curso'].nome_breve
@@ -37,7 +39,8 @@ class CadastroAlunoCreateView(CreateView):
             if not os.path.isdir('uploads/' + dir_name):
                 os.mkdir('uploads/' + dir_name)
             new_data.documentacao.name = dir_name + '/' + file_name
-            new_data.save()
+        
+        new_data.save()
         
         self.request.session['dados_aluno'] = new_data.id
 
@@ -147,8 +150,7 @@ class CadastroAlunoCreateView(CreateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        print(form.errors.as_data())
-        messages.success(self.request, form.errors.as_data())
+        messages.success(self.request, str(form.errors.as_data()))
         return super().form_invalid(form)
         
 

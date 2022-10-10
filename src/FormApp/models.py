@@ -29,7 +29,7 @@ class DadosDoAluno(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT, verbose_name="Curso Pretendido")
     documentacao = models.FileField(verbose_name="Documentação", upload_to="uploads", blank=True, null=True, validators=[validatePDF])
 
-    cpf = models.CharField(max_length=14, verbose_name="CPF", validators=[validateCPF], unique=True)
+    cpf = models.CharField(max_length=14, verbose_name="CPF", validators=[validateCPF])
     data_nascimento = models.DateField(verbose_name="Data de Nascimento", validators=[validateBirthdate])
     nome = models.CharField(
         max_length=63, 

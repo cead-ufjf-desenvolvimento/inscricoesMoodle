@@ -30,6 +30,12 @@ class AlunosForm(forms.ModelForm):
             'documentacao': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
+    def clean(self):
+        cleaned_data = super(AlunosForm, self).clean()
+        if {'cpf': cleaned_data['cpf'].replace('.', '').replace('-', ''), 'curso': cleaned_data['curso'].id} in DadosDoAluno.objects.all().values('cpf', 'curso'):
+            self.add_error('cpf', 'CPF já cadastrado no curso solicitado')
+        
+
 class CursosForm(forms.ModelForm):
     class Meta:
         model = Curso
