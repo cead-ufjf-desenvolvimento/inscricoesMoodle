@@ -4,59 +4,68 @@
 
 {% load custom_tags %}
 
-<div class="container mt-5 w-50">
-    <form method="post" enctype="multipart/form-data">{% csrf_token %}
-        {% if form.errors %}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger">
-                        <strong>{{error|escape}}</strong>
-                    </div>
+{% if has_curso %}
+    <div class="container mt-5 w-50">
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{error|escape}}</strong>
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-        {% endif %}
+            {% endif %}
 
-        <div class="shadow p-3 border-top border-primary rounded mb-3">
-            <h3>Dados Pessoais</h3>
-            <div class="d-flex gap-2 mb-2">
-                <div class="w-25">{{form.cpf.label}}{{form.cpf}}</div>
-                <div class="w-25">{{form.data_nascimento.label}}{{form.data_nascimento}}</div>
-                <div class="w-50">{{form.curso.label}}{{form.curso}}</div>
+            <div class="shadow p-3 border-top border-primary rounded mb-3">
+                <h3>Dados Pessoais</h3>
+                <div class="d-flex gap-2 mb-2">
+                    <div class="w-25">{{form.cpf.label}}{{form.cpf}}</div>
+                    <div class="w-25">{{form.data_nascimento.label}}{{form.data_nascimento}}</div>
+                    <div class="w-50">{{form.curso.label}}{{form.curso}}</div>
+                </div>
+                <div class="d-flex gap-2 mb-2">
+                    <div class="w-50" colspan="6">{{form.nome.label}}{{form.nome}}</div>
+                    <div class="w-50" colspan="6">{{form.sobrenome.label}}{{form.sobrenome}}</div>
+                </div>
+                <div class="d-flex gap-2 mb-2">
+                    <div class="w-25" colspan="3">{{form.telefone.label}}{{form.telefone}}</div>
+                    <div class="w-50" colspan="6">{{form.email.label}}{{form.email}}</div>
+                    <div class="w-25" colspan="3">{{form.siga.label}}{{form.siga}}</div>
+                </div>
+                <div class="d-flex gap-2 mb-2">
+                    <div class="w-25" colspan="3">{{form.possui_siape.label}}{{form.possui_siape}}</div>
+                    <div class="w-25" colspan="3"><span id="siape" style="display: none;">{{form.siape.label}}</span>{{form.siape}}</div>
+                    <div class="w-50" colspan="6"><span id="documentacao">{{form.documentacao.label}}{{form.documentacao}}</div>
+                </div>
             </div>
-            <div class="d-flex gap-2 mb-2">
-                <div class="w-50" colspan="6">{{form.nome.label}}{{form.nome}}</div>
-                <div class="w-50" colspan="6">{{form.sobrenome.label}}{{form.sobrenome}}</div>
-            </div>
-            <div class="d-flex gap-2 mb-2">
-                <div class="w-25" colspan="3">{{form.telefone.label}}{{form.telefone}}</div>
-                <div class="w-50" colspan="6">{{form.email.label}}{{form.email}}</div>
-                <div class="w-25" colspan="3">{{form.siga.label}}{{form.siga}}</div>
-            </div>
-            <div class="d-flex gap-2 mb-2">
-                <div class="w-25" colspan="3">{{form.possui_siape.label}}{{form.possui_siape}}</div>
-                <div class="w-25" colspan="3"><span id="siape" style="display: none;">{{form.siape.label}}</span>{{form.siape}}</div>
-                <div class="w-50" colspan="6"><span id="documentacao">{{form.documentacao.label}}{{form.documentacao}}</div>
-            </div>
-        </div>
 
-        <div class="shadow p-3 border-top border-primary rounded mb-3">
-            <h3>Dados Adicionais</h3>
-    
-            <div class="d-flex gap-2 mb-2">
-                <div class="w-25" colspan="3">{{form.cep.label}}{{form.cep}}</div>
-                <div class="w-50" colspan="6">{{form.logradouro.label}}{{form.logradouro}}</div>
-                <div class="w-25" colspan="3">{{form.numero.label}}{{form.numero}}</div>
+            <div class="shadow p-3 border-top border-primary rounded mb-3">
+                <h3>Dados Adicionais</h3>
+        
+                <div class="d-flex gap-2 mb-2">
+                    <div class="w-25" colspan="3">{{form.cep.label}}{{form.cep}}</div>
+                    <div class="w-50" colspan="6">{{form.logradouro.label}}{{form.logradouro}}</div>
+                    <div class="w-25" colspan="3">{{form.numero.label}}{{form.numero}}</div>
+                </div>
+                <div class="d-flex gap-2 mb-2">
+                    <div class="w-25" colspan="3">{{form.complemento.label}}{{form.complemento}}</div>
+                    <div class="w-25" colspan="3">{{form.bairro.label}}{{form.bairro}}</div>
+                    <div class="w-25" colspan="3">{{form.cidade.label}}{{form.cidade}}</div>
+                    <div class="w-25" colspan="3">{{form.uf.label}}{{form.uf}}</div>
+                </div>
             </div>
-            <div class="d-flex gap-2 mb-2">
-                <div class="w-25" colspan="3">{{form.complemento.label}}{{form.complemento}}</div>
-                <div class="w-25" colspan="3">{{form.bairro.label}}{{form.bairro}}</div>
-                <div class="w-25" colspan="3">{{form.cidade.label}}{{form.cidade}}</div>
-                <div class="w-25" colspan="3">{{form.uf.label}}{{form.uf}}</div>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary px-3 mb-4">Enviar</button>
-    </form>
-</div>
+            <button id="submit" type="submit" class="btn btn-primary px-3 mb-4 d-flex align-items-center gap-2">
+                <span id="loading" class="spinner-border spinner-border-sm text-light" style="display: none;"role="status"></span>
+                Enviar
+            </button>
+        </form>
+    </div>
+{% else %}
+    <span class="shadow p-4 rounded-3 position-absolute top-50 start-50 translate-middle">
+        No momento, o CEAD não está oferecendo cursos nessa modalidade de inscrição.
+    </span>
+{% endif %}
 
 <script>
     $(document).ready(function(){
@@ -65,12 +74,12 @@
 
         var PhoneMaskBehavior = function (val) {
             return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-          },
-          Options = {
+        },
+        Options = {
             onKeyPress: function(val, e, field, options) {
                 field.mask(PhoneMaskBehavior.apply({}, arguments), options);
-              }
-          };
+            }
+        };
         $('#id_telefone').mask(PhoneMaskBehavior, Options);
 
         flag_list = {{flag_curso_list}}
@@ -123,6 +132,10 @@
     })
 
     $('.errorlist').addClass('border');
+
+    $('form').on('submit', () => {
+        $('#loading').css('display', 'inline')
+    })
 </script>
 
 {% endblock %}

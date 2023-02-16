@@ -3,11 +3,11 @@ import csv, json, os
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic.edit import CreateView
-from django.core.exceptions import ValidationError
-from FormApp.forms import AlunosForm
+from FormApp.forms import AlunosForm, CursosForm
 from FormApp.utils import PasswdGen, SendEmail
-from FormApp.models import Curso, DadosDoAluno
+from FormApp.models import Curso
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class CadastroAlunoCreateView(CreateView):
@@ -22,6 +22,8 @@ class CadastroAlunoCreateView(CreateView):
             if curso.anexar_documentacao:
                 flag_curso_list.append(curso.id)
         context['flag_curso_list'] = flag_curso_list
+        if len(Curso.objects.filter(ativo=True)) > 0:
+            context['has_curso'] = True
         return context
     
     def form_valid(self, form):
@@ -153,23 +155,23 @@ class CadastroAlunoCreateView(CreateView):
         messages.success(self.request, str(form.errors.as_data()))
         return super().form_invalid(form)
         
-
 def thanks(request):
     return render(request, 'thanks.html')
 
 def thanks2(request):
     return render(request, 'thanks2.html')
 
-# class CadastroCursoCreateView(CreateView):
-#     form_class = CursosForm
-#     template_name = "form_curso.html"
-#     success_url = "/thanks2"
+class CadastroCursoCreateView(LoginRequiredMixin, CreateView):
+    login_url = "/accounts/login"
+    form_class = CursosForm
+    template_name = "form_curso.html"
+    success_url = "/thanks2"
 
-#     def form_valid(self, form):
-#         messages.success(self.request, "Curso cadastrado com sucesso")
-#         return super().form_valid(form)
+    def form_valid(self, form):
+        messages.success(self.request, "Curso cadastrado com sucesso")
+        return super().form_valid(form)
 
-#     def form_invalid(self, form):
-#         print(form.errors.as_data())
-#         messages.success(self.request, form.errors.as_data())
-#         return super().form_invalid(form)
+    def form_invalid(self, form):
+        print(form.errors.as_data())
+        messages.success(self.request, form.errors.as_data())
+        return super().form_invalid(form)

@@ -6,7 +6,7 @@ from localflavor.br.forms import BRCPFField
 class AlunosForm(forms.ModelForm):
     possui_siape = forms.BooleanField(required=False, label="Possui SIAPE?", initial=False, widget=forms.Select(attrs={'class': 'form-select'}, choices=((False, "Não"), (True, "Sim"))))
     
-    curso = forms.ModelChoiceField(queryset=Curso.objects.all().order_by('nome'), widget=forms.Select(attrs={'class': 'form-select'}))
+    curso = forms.ModelChoiceField(queryset=Curso.objects.filter(ativo=True).order_by('nome'), widget=forms.Select(attrs={'class': 'form-select'}))
 
     class Meta:
         model = DadosDoAluno
@@ -16,7 +16,7 @@ class AlunosForm(forms.ModelForm):
             'data_nascimento': forms.TextInput(attrs={'class': 'form-control', 'type': 'date'}),
             'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Primeiro nome ou nome social'}),
             'sobrenome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Último nome'}),
-            'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'E-mail válido (necessário para confirmação de matrícula)'}),
+            'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Necessário para confirmação de matrícula'}),
             'cidade': forms.TextInput(attrs={'class': 'form-control'}),
             'telefone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Somente números'}),
             'cep': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Somente números'}),

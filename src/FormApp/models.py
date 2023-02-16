@@ -18,6 +18,7 @@ class Curso(models.Model):
     data_fim = models.DateField(verbose_name="Fim das Atividades")
     matricula_inicio = models.DateTimeField(verbose_name="Início das Inscrições")
     matricula_fim = models.DateTimeField(verbose_name="Fim das Inscrições")
+    ativo = models.BooleanField(default=True)
     
     anexar_documentacao = models.BooleanField(verbose_name="Anexar Documentação", default=False, null=True, blank=True)
 
