@@ -51,7 +51,11 @@ class DadosDoAluno(models.Model):
     bairro = models.CharField(max_length=31)
     uf = models.CharField(max_length=2, verbose_name="UF", choices=STATE_CHOICES)
     
-    siga = models.BooleanField(verbose_name="É aluno da UFJF?")
-    siape = models.CharField(max_length=7, null=True, blank=True, verbose_name="SIAPE")
+    siga = models.BooleanField(verbose_name="É aluno da UFJF?*")
+    # siape = models.CharField(max_length=7, null=True, blank=True, verbose_name="SIAPE")
+
+    secretaria = models.CharField(max_length=255)
+    cargo = models.CharField(max_length=255)
+    matricula = models.CharField(max_length=31, verbose_name="Matrícula")
 
     data_cadastro = models.DateTimeField(auto_now_add=True)

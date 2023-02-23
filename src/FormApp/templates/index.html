@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center gap-5">
+    <a href={% url 'aluno_cadastro' %}>
+        <div class="menuContainer shadow mt-5 d-flex flex-column justify-content-end">
+            <span class="w-100 text-center bg-primary text-light py-3 fs-4">Inscrições</span>
+        </div>
+    </a>
+    <a href={% url 'curso_cadastro' %}>
+        <div class="menuContainer shadow mt-5 d-flex flex-column justify-content-end">
+            <span class="w-100 text-center bg-primary text-light py-3 fs-4">Administração</span>
+        </div>
+    </a>
+</div>
+
+{% endblock %}

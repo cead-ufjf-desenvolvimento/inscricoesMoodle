@@ -23,9 +23,9 @@
 
     <nav class="navbar navbar-light bg-light shadow">
         <div class="container-fluid d-flex">
-            <a class="navbar-brand" href="{% url 'aluno_cadastro' %}">
+            <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'assets/cead_logo.png' %}" alt="Logo do CEAD" class="ms-2 logo d-inline-block align-text-center">
-                <span class="ms-2">CEAD | Matrícula</span>
+                <span class="ms-2">CEAD | Inscrição</span>
             </a>
 
             {% if not user.is_anonymous %}

@@ -57,6 +57,10 @@ table input{
     border-color:#ae1f25 !important
 }
 
+.bg-primary{
+    background-color:#ae1f25 !important
+}
+
 .btn-primary{
     color:#fff;
     background-color:#ae1f25;
@@ -66,4 +70,9 @@ table input{
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active{
     background-color: #80181d;
     border-color:#ae1f25;
+}
+
+.menuContainer{
+    height: 75vh;
+    width: 20rem;
 }

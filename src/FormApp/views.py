@@ -10,6 +10,9 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
+def index(request):
+    return render(request, 'index.html')
+
 class CadastroAlunoCreateView(CreateView):
     form_class = AlunosForm
     template_name = 'form_aluno.html'

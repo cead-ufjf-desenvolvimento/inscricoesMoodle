@@ -22,37 +22,52 @@
                 <div class="d-flex gap-2 mb-2">
                     <div class="w-25">{{form.cpf.label}}{{form.cpf}}</div>
                     <div class="w-25">{{form.data_nascimento.label}}{{form.data_nascimento}}</div>
-                    <div class="w-50">{{form.curso.label}}{{form.curso}}</div>
+                    <div class="w-50 d-flex flex-column">{{form.curso.label}}<span class="w-100">{{form.curso}}</span></div>
                 </div>
                 <div class="d-flex gap-2 mb-2">
-                    <div class="w-50" colspan="6">{{form.nome.label}}{{form.nome}}</div>
-                    <div class="w-50" colspan="6">{{form.sobrenome.label}}{{form.sobrenome}}</div>
+                    <div class="w-50">{{form.nome.label}}{{form.nome}}</div>
+                    <div class="w-50">{{form.sobrenome.label}}{{form.sobrenome}}</div>
                 </div>
                 <div class="d-flex gap-2 mb-2">
-                    <div class="w-25" colspan="3">{{form.telefone.label}}{{form.telefone}}</div>
-                    <div class="w-50" colspan="6">{{form.email.label}}{{form.email}}</div>
-                    <div class="w-25" colspan="3">{{form.siga.label}}{{form.siga}}</div>
+                    <div class="w-25">{{form.telefone.label}}{{form.telefone}}</div>
+                    <div class="w-50">{{form.email.label}}{{form.email}}</div>
+                    <div class="w-25">{{form.siga.label}}{{form.siga}}</div>
                 </div>
                 <div class="d-flex gap-2 mb-2">
-                    <div class="w-25" colspan="3">{{form.possui_siape.label}}{{form.possui_siape}}</div>
-                    <div class="w-25" colspan="3"><span id="siape" style="display: none;">{{form.siape.label}}</span>{{form.siape}}</div>
-                    <div class="w-50" colspan="6"><span id="documentacao">{{form.documentacao.label}}{{form.documentacao}}</div>
+                    {% comment %} <div class="w-25" colspan="3">{{form.possui_siape.label}}{{form.possui_siape}}</div>
+                    <div class="w-25" colspan="3"><span id="siape" style="display: none;">{{form.siape.label}}</span>{{form.siape}}</div> {% endcomment %}
+                    <div class="w-100"><span id="documentacao">{{form.documentacao.label}}{{form.documentacao}}</div>
+                </div>
+                <div class="mb-2">
+                    <small>*O servidor foi indicado pelo município selecionado no EDITAL Nº 01, DE 03 DE OUTUBRO DE 2022 da UFJF-CRITT.</small>
                 </div>
             </div>
 
             <div class="shadow p-3 border-top border-primary rounded mb-3">
                 <h3>Dados Adicionais</h3>
+
+                <h5>Endereço (residência)</h5>
         
                 <div class="d-flex gap-2 mb-2">
-                    <div class="w-25" colspan="3">{{form.cep.label}}{{form.cep}}</div>
-                    <div class="w-50" colspan="6">{{form.logradouro.label}}{{form.logradouro}}</div>
-                    <div class="w-25" colspan="3">{{form.numero.label}}{{form.numero}}</div>
+                    <div class="w-25">{{form.cep.label}}{{form.cep}}</div>
+                    <div class="w-50">{{form.logradouro.label}}{{form.logradouro}}</div>
+                    <div class="w-25">{{form.numero.label}}{{form.numero}}</div>
                 </div>
                 <div class="d-flex gap-2 mb-2">
-                    <div class="w-25" colspan="3">{{form.complemento.label}}{{form.complemento}}</div>
-                    <div class="w-25" colspan="3">{{form.bairro.label}}{{form.bairro}}</div>
-                    <div class="w-25" colspan="3">{{form.cidade.label}}{{form.cidade}}</div>
-                    <div class="w-25" colspan="3">{{form.uf.label}}{{form.uf}}</div>
+                    <div class="w-25">{{form.complemento.label}}{{form.complemento}}</div>
+                    <div class="w-25">{{form.bairro.label}}{{form.bairro}}</div>
+                    <div class="w-25">{{form.cidade.label}}{{form.cidade}}</div>
+                    <div class="w-25">{{form.uf.label}}{{form.uf}}</div>
+                </div>
+            </div>
+
+            <div class="shadow p-3 border-top border-primary rounded mb-3">
+                <h3>Informações de Vínculo do Servidor com a Prefeitura</h3>
+
+                <div class="w-100">{{form.cargo.label}}{{form.cargo}}</div>
+                <div class="d-flex gap-2 mb-2">
+                    <div class="w-75">{{form.secretaria.label}}{{form.secretaria}}</div>
+                    <div class="w-25">{{form.matricula.label}}{{form.matricula}}</div>
                 </div>
             </div>
             <button id="submit" type="submit" class="btn btn-primary px-3 mb-4 d-flex align-items-center gap-2">

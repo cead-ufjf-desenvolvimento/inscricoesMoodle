@@ -26,8 +26,11 @@ class AlunosForm(forms.ModelForm):
             'bairro': forms.TextInput(attrs={'class': 'form-control'}),
             'uf': forms.Select(attrs={'class': 'form-select'}),
             'siga': forms.Select(choices=((False, "Não"), (True, "Sim")), attrs={'class': 'form-select'}),
-            'siape': forms.TextInput(attrs={'class': 'form-control', 'style': 'display: none;'}),
+            # 'siape': forms.TextInput(attrs={'class': 'form-control', 'style': 'display: none;'}),
             'documentacao': forms.FileInput(attrs={'class': 'form-control'}),
+            'secretaria': forms.TextInput(attrs={'class': 'form-control'}),
+            'cargo': forms.TextInput(attrs={'class': 'form-control'}),
+            'matricula': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
     def clean(self):
